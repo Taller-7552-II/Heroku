@@ -1,14 +1,16 @@
-var http= require('http');
 var express = require('express');
 var app = express();
 
-var server = http.createServer(function(req,res){
-	res.writeHead(200, {'Content-Type': 'text/html'});
-	res.end('<h1>Hola</h1>');
+app.set('port',process.env.PORT || 3000);
+
+app.get('/', function(request, response) {
+	response.send("super");
 });
-var port = Number(process.env.PORT || 3000);
-server.listen(port);
 
 app.get('/july', function(request, response) {
 	response.send("epic");
-}
+});
+
+app.listen(app.get('port'), function(){
+	console.log('Jobify working, kill it with Ctrl-C');
+});

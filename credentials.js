@@ -1,0 +1,1 @@
+module.exports = {cookieSecret: 'mati gonza fede juampa',};

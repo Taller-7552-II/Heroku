@@ -32,11 +32,16 @@ app.get('/contact', function(request, response) {
 });
 
 
-//test db
+//test db bastante jodido configurar pero funco... no cambiar mucho de esto
 var pg = require('pg');
+
 var connectionString = "postgres://nlmbufkijzqmqs:2BESGXz_KTUisRfo4MmdoJBNid@ec2-54-235-254-199.compute-1.amazonaws.com:5432/d36ea1inur7hrd";
 app.get('/db', function (request, response) {
+
+  pg.defaults.ssl = true;
   pg.connect(connectionString, function(err, client, done) {
+  	if (err)
+       { console.error('Rompio loco',err);}
     client.query('SELECT * FROM usuarios', function(err, result) {
       done();
       if (err)

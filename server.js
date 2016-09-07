@@ -32,21 +32,6 @@ app.get('/contact', function(request, response) {
 });
 
 
-//test db
-var pg = require('pg');
-
-app.get('/db', function (request, response) {
-	console.log(process.env.DATABASE_URL);
-  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-    client.query('SELECT * FROM usuarios', function(err, result) {
-      done();
-      if (err)
-       { console.error(err); response.send("Error " + err); }
-      else
-       { response.render('/db', {results: result.rows} ); }
-    });
-  });
-});
 
 app.get('/gracias', function(request, response) {
 	response.render('gracias');

@@ -32,6 +32,21 @@ app.get('/contact', function(request, response) {
 });
 
 
+//test db
+var pg = require('pg');
+var connectionString = "postgres://nlmbufkijzqmqs:2BESGXz_KTUisRfo4MmdoJBNid@ec2-54-235-254-199.compute-1.amazonaws.com:5432:/d36ea1inur7hrd"
+app.get('/db', function (request, response) {
+	console.log(process.env.DATABASE_URL);
+  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+    client.query('SELECT * FROM usuarios', function(err, result) {
+      done();
+      if (err)
+       { console.error(err); response.send("Error " + err); }
+      else
+       { response.render('/db', {results: result.rows} ); }
+    });
+  });
+});
 
 app.get('/gracias', function(request, response) {
 	response.render('gracias');

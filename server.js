@@ -19,7 +19,6 @@ app.use(require('cookie-parser')(credentials.cookieSecret));
 
 app.set('port',process.env.PORT || 3000);
 
-
 app.use(express.static(__dirname + '/public'));
 
 //Metodo get para ir a la ruta web del handlebars

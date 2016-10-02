@@ -42,7 +42,7 @@ app.get('/db', function (request, response) {
   pg.connect(connectionString, function(err, client, done) {
   	if (err)
        { console.error('Rompio loco',err);}
-    client.query('SELECT * FROM usuarios', function(err, result) {
+    client.query('SELECT * FROM usuarios where id=1', function(err, result) {
       done();
       if (err)
        { console.error(err); response.send("Error " + err); }

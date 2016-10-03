@@ -9,6 +9,7 @@ app.engine('handlebars',handlebars.engine);
 app.set('view engine', 'handlebars');
 
 
+
 //LEO LOS REQUEST POR PARAMETRO Y POR JSON
 var bodyParser     =         require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));

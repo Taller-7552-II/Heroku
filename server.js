@@ -8,9 +8,13 @@ var handlebars = require('express-handlebars').create({defaultLayout:'main'});
 app.engine('handlebars',handlebars.engine);
 app.set('view engine', 'handlebars');
 
-//Importo mas cosas 
 
-app.use(require('body-parser').urlencoded({extended: true}));
+//LEO LOS REQUEST POR PARAMETRO Y POR JSON
+var bodyParser     =         require("body-parser");
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+//Importo mas cosas 
 
 var formidable = require('formidable');
 
@@ -51,6 +55,26 @@ app.get('/db', function (request, response) {
     });
   });
 });
+//hago post para base de dato
+var pg = require('pg');
+
+var connectionString = "postgres://nlmbufkijzqmqs:2BESGXz_KTUisRfo4MmdoJBNid@ec2-54-235-254-199.compute-1.amazonaws.com:5432/d36ea1inur7hrd";
+app.post('/id', function (request, response) {
+
+  pg.defaults.ssl = true;
+  pg.connect(connectionString, function(err, client, done) {
+  	if (err)
+       { console.error('Rompio loco',err);}
+    client.query('SELECT * FROM usuarios where id='+request.body.id, function(err, result) {
+      done();
+      if (err)
+       { console.error(err); response.send("Error " + err); }
+      else
+       { response.json(result.rows); }
+    });
+  });
+});
+
 
 app.get('/gracias', function(request, response) {
 	response.render('gracias');

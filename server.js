@@ -86,7 +86,8 @@ app.get('/usuarios/:user', function (request, response) {
   	if (err)
        { console.error('Rompio loco',err);}
     var num = request.url.toString().substring(10, request.url.toString().length);
-    client.query('SELECT * FROM usuarios where usuario = fede' , function(err, result) {
+    var comilla = '"';
+    client.query('SELECT * FROM usuarios where usuario = '+comilla+num+comilla , function(err, result) {
       done();
       if (err)
        { console.error(err); response.send("Error " + err); }

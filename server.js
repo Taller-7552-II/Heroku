@@ -75,6 +75,25 @@ app.post('/id', function (request, response) {
     });
   });
 });
+//hago post para base de dato
+var pg = require('pg');
+
+var connectionString = "postgres://nlmbufkijzqmqs:2BESGXz_KTUisRfo4MmdoJBNid@ec2-54-235-254-199.compute-1.amazonaws.com:5432/d36ea1inur7hrd";
+app.get('/usuarios/:user', function (request, response) {
+
+  pg.defaults.ssl = true;
+  pg.connect(connectionString, function(err, client, done) {
+  	if (err)
+       { console.error('Rompio loco',err);}
+    client.query('SELECT * FROM usuarios where usuario='+request.body.user, function(err, result) {
+      done();
+      if (err)
+       { console.error(err); response.send("Error " + err); }
+      else
+       { response.json(result.rows); }
+    });
+  });
+});
 
 
 app.get('/gracias', function(request, response) {

@@ -85,7 +85,14 @@ app.get('/usuarios/:user', function (request, response) {
   pg.connect(connectionString, function(err, client, done) {
   	if (err)
        { console.error('Rompio loco',err);}
-    client.query('SELECT * FROM usuarios where usuario='+request.body.user, function(err, result) {
+    console.log(request.body.user);
+    console.log(request.toString());
+    console.log(request.body.toString());
+    console.log(request.url.toString());
+    console.log(request.url.toString().substring(10, request.url.toString().length));
+    var num = request.url.toString().substring(10, request.url.toString().length);
+    console.log(parseInt(num) +1);
+    client.query('SELECT * FROM usuarios where id = '+parseInt(num) , function(err, result) {
       done();
       if (err)
        { console.error(err); response.send("Error " + err); }

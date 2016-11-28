@@ -56,7 +56,7 @@ app.get('/db', function (request, response) {
 	       
 	       var loco = "result: "+JSON.stringify(result.rows)+" "+JSON.stringify(result.rows.length);;
 	       loco = loco.replace(/\\/g , "");
-	       response.json(loco); }
+	       response.render(loco); }
     });
   });
 });

@@ -152,8 +152,8 @@ app.post('/job_positions/categories/:problem', function (request, response) {
       else
        {
 	     response.status(201);
-	     var rta = "  \"job_position\": {\"name\": \""+request.body.name+"\",\"description\": \""
-	     rta = rta+request.body.description+"\",\"category\": \""+request.params.problem+"\"}";
+	     var rta = "  \"job_position\": {\"name\": \""+request.body.job_position.name+"\",\"description\": \""
+	     rta = rta+request.body.job_position.description+"\",\"category\": \""+request.params.problem+"\"}";
 	         rta = rta.replace(/\\/g , "");
 	         response.write(rta); 
        		response.end(); }

@@ -123,9 +123,9 @@ app.post('/job_positions/categories/:problem', function (request, response) {
        { console.error(err); response.send("Error " + err); }
       else
        {
-	       
-	       var rta = "{ \"job_positions\": "+JSON.stringify(result.rows);
-	       rta = rta+",\"metadata\": { \"version\": \"0.1\",\"count\": "+JSON.stringify(result.rows.length)+"}}";
+	     response.status(201);
+	     var rta = "  \"job_position\": {\"name\": \""+request.body.name+"\",\"description\": \""
+	     rta = rta+request.body.description+"\",\"category\": \""+request.params.problem+"\"}";
 	         rta = rta.replace(/\\/g , "");
 	         response.write(rta); 
        		response.end(); }

@@ -104,8 +104,6 @@ app.get('/usuarios/:user', function (request, response) {
   });
 });
 //TODAS LAS CATEGORYS
-
-
 //DELETE CATEGORY
 var pg = require('pg');
 
@@ -166,7 +164,7 @@ app.delete('/categories/:problem', function (request, response) {
     
     });
   });
-
+});
 
 //post CATEGORY POSITIONS
 var pg = require('pg');

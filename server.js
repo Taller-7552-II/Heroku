@@ -131,7 +131,7 @@ app.put('/job_positions/categories/:problem/:nombre', function (request, respons
       else
        {
 	       
-	       var rta = "{ \"job_positions\": "+body.job_position;
+	       var rta = "{ \"job_positions\": ";
 	         rta = rta.replace(/\\/g , "");
 	         response.write(rta); 
        		response.end(); }

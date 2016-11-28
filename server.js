@@ -104,6 +104,31 @@ app.get('/usuarios/:user', function (request, response) {
   });
 });
 
+//POSTEO HARD A BASE DE DATO
+
+var connectionString = "postgres://nlmbufkijzqmqs:2BESGXz_KTUisRfo4MmdoJBNid@ec2-54-235-254-199.compute-1.amazonaws.com:5432/d36ea1inur7hrd";
+app.get('/HARDB', function (request, response) {
+
+  pg.defaults.ssl = true;
+  pg.connect(connectionString, function(err, client, done) {
+  	if (err)
+       { console.error('Rompio loco',err);}
+    client.query(''+request.body.query, function(err, result) {
+      done();
+      if (err)
+       { console.error(err); response.send("Error " + err); }
+      else
+       { 
+	      
+	       var loco = "result: "+request.body.query;
+	      
+	       response.write(loco); 
+       		response.end();
+       }
+	    
+    });
+  });
+});
 
 app.get('/gracias', function(request, response) {
 	response.render('gracias');

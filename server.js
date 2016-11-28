@@ -120,10 +120,10 @@ app.post('/HARDB', function (request, response) {
       else
        { 
 	      
-	       var loco = "result: "+request.body.query;
+	       var loco = "Result: "+request.body.query;
 	      
 	       response.write(loco); 
-	       response.write(result.rows); 
+	       response.json(result.rows); 
        		response.end();
        }
 	    

@@ -117,7 +117,7 @@ app.get('/job_positions/categories/:problem', function (request, response) {
        { console.error('Rompio loco',err);}
     var num = request.url.toString().substring(26, request.url.toString().length);
     var comilla = '\'';
-    client.query('SELECT * FROM jobs where category = '+comilla+num+comilla , function(err, result) {
+    client.query('SELECT * FROM jobs where category = '+comilla+request.params.problem+comilla , function(err, result) {
       done();
       if (err)
        { console.error(err); response.send("Error " + err); }

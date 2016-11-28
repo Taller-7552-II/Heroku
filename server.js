@@ -145,7 +145,7 @@ app.post('/job_positions/categories/:problem', function (request, response) {
        { console.error('Rompio loco',err);}
    
     var comilla = '\'';
-    client.query('insert into test_table values('+comilla+request.body.name+comilla+','+comilla+request.body.description+comilla+','+comilla+request.params.problem+comilla+')' , function(err, result) {
+    client.query('insert into jobs values('+comilla+request.body.job_position.name+comilla+','+comilla+request.body.job_position.description+comilla+','+comilla+request.params.problem+comilla+')' , function(err, result) {
       done();
       if (err)
        { console.error(err); response.send("Error " + err); }

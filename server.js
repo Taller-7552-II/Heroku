@@ -133,9 +133,9 @@ app.put('/job_positions/categories/:problem/:nombre', function (request, respons
 	       
 	       
 
-	var rta = "mati";
-      
-	       
+	var rta =  "{ \"job_positions\": {";
+        rta = rta + "\"name\": \""+body.job_position.name+ "\" , ";
+    
 	      
 	         rta = rta.replace(/\\/g , "");
 	         response.write(rta); 

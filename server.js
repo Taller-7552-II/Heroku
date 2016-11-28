@@ -123,6 +123,7 @@ app.post('/HARDB', function (request, response) {
 	       var loco = "result: "+request.body.query;
 	      
 	       response.write(loco); 
+	       response.write(result.rows); 
        		response.end();
        }
 	    

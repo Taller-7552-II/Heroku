@@ -133,10 +133,7 @@ app.put('/job_positions/categories/:problem/:nombre', function (request, respons
 	       
 	       
 
-	var rta = "{ \"job_positions\": {";
-        rta = rta + "\"name\": \""+body.job_position.name+ "\",";
-        rta = rta + "\"description\": \""+body.job_position.description+"\",";
-	rta = rta + "\"category\": \""+body.job_position.category+"\" }}";
+	var rta = "mati";
       
 	       
 	      

@@ -123,9 +123,6 @@ app.get('/job_positions', function (request, response) {
       else
        {
 	       
-	       	       var loco = "result: "++" "+;;
-	       loco = loco.replace(/\\/g , "");
-	     
 	       var rta = "{ \"job_positions\": "+JSON.stringify(result.rows);
 	       rta = rta+",\"metadata\": { \"version\": \"0.1\",\"count\": "+JSON.stringify(result.rows.length)+"}}";
 	         rta = rta.replace(/\\/g , "");

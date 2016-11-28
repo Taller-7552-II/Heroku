@@ -115,7 +115,7 @@ app.put('/job_positions/categories/:problem/:nombre', function (request, respons
   pg.connect(connectionString, function(err, client, done) {
   	if (err)
        { console.error('Rompio loco',err);}
-    var num = request.url.toString().substring(26, request.url.toString().length);
+	  
     var comilla = '\'';
 	  
     var query = "UPDATE jobs set name = "+comilla+request.body.job_position.name+comilla+" ,";
@@ -124,7 +124,7 @@ app.put('/job_positions/categories/:problem/:nombre', function (request, respons
 	  query = query + " where name = "+comilla +request.params.nombre+comilla+" and ";
 	  query = query + "category = "+comilla+request.params.problem+comilla;
 	  
-    client.query(query, function(err, result) {
+    client.query("select * from jobs", function(err, result) {
       done();
       if (err)
        { console.error(err); response.send("Error " + err); }
@@ -133,7 +133,7 @@ app.put('/job_positions/categories/:problem/:nombre', function (request, respons
 	       
 	       var rta = "{ \"job_positions\": ";
 	         rta = rta.replace(/\\/g , "");
-	         response.write(rta); 
+	         response.write(query); 
        		response.end(); }
     });
   });

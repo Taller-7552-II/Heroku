@@ -105,6 +105,39 @@ app.get('/usuarios/:user', function (request, response) {
 });
 
 
+//PUT JOB POSITIONS
+var pg = require('pg');
+
+var connectionString = "postgres://nlmbufkijzqmqs:2BESGXz_KTUisRfo4MmdoJBNid@ec2-54-235-254-199.compute-1.amazonaws.com:5432/d36ea1inur7hrd";
+app.put('/job_positions/categories/:problem/:nombre', function (request, response) {
+
+  pg.defaults.ssl = true;
+  pg.connect(connectionString, function(err, client, done) {
+  	if (err)
+       { console.error('Rompio loco',err);}
+    var num = request.url.toString().substring(26, request.url.toString().length);
+    var comilla = '\'';
+	  
+    var query = "UPDATE jobs set name = "+comilla+request.body.job_position.name+comilla+" ,";
+    query = query +" description = "+comilla+request.body.job_position.description+comilla+" ,";
+	  query = query +" category = "+comilla+request.body.job_position.category+comilla;
+	  query = query + " where name = "+comilla +request.params.nombre+comilla+" and ";
+	  query = query + "category = "+comilla+request.params.problem+comilla;
+	  
+    client.query(query, function(err, result) {
+      done();
+      if (err)
+       { console.error(err); response.send("Error " + err); }
+      else
+       {
+	       
+	       var rta = "{ \"job_positions\": "+body.job_position;
+	         rta = rta.replace(/\\/g , "");
+	         response.write(rta); 
+       		response.end(); }
+    });
+  });
+});
 
 //GET JOB POSITIONS
 var pg = require('pg');

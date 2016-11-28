@@ -131,14 +131,56 @@ app.put('/job_positions/categories/:problem/:nombre', function (request, respons
       else
        {
 	       
-	       var rta = "{ \"job_positions\": ";
+	       
+	       comilla+request.body.job_position.name+comilla+" ,";
+    query = query +" description = "+comilla+request+comilla+" ,";
+	  query = query +" category = "+comilla+request.body.job_position.category+comilla;
+	       
+	var rta = "{ \"job_positions\": {";
+        rta = rta + "\"name\": \""+body.job_position.name+ "\",";
+        rta = rta + "\"description\": \""+body.job_position.description+"\",";
+	rta = rta + "\"category\": \""+body.job_position.category+"\" }}";
+      
+	       
+	      
 	         rta = rta.replace(/\\/g , "");
-	         response.write(query); 
+	         response.write(rta); 
        		response.end(); }
     });
   });
 });
 
+//DELETE JOB POSITIONS
+var pg = require('pg');
+
+var connectionString = "postgres://nlmbufkijzqmqs:2BESGXz_KTUisRfo4MmdoJBNid@ec2-54-235-254-199.compute-1.amazonaws.com:5432/d36ea1inur7hrd";
+app.delete('/job_positions/categories/:problem/:nombre', function (request, response) {
+
+  pg.defaults.ssl = true;
+  pg.connect(connectionString, function(err, client, done) {
+  	if (err)
+       { console.error('Rompio loco',err);}
+	  
+    var comilla = '\'';
+	  
+    var query = "DELETE from jobs where name = "+comilla +request.params.nombre+comilla+" and ";
+	  query = query + "category = "+comilla+request.params.problem+comilla;
+	  
+    client.query(query, function(err, result) {
+      done();
+      if (err)
+       { console.error(err); response.send("Error " + err); }
+      else
+       {
+	       
+	       var rta = "{ \"job_positions\": ";
+	         rta = rta.replace(/\\/g , "");
+	       response.status(204);
+	         response.write(query); 
+       		response.end(); }
+    });
+  });
+});
 //GET JOB POSITIONS
 var pg = require('pg');
 

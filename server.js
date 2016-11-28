@@ -132,10 +132,7 @@ app.put('/job_positions/categories/:problem/:nombre', function (request, respons
        {
 	       
 	       
-	       comilla+request.body.job_position.name+comilla+" ,";
-    query = query +" description = "+comilla+request+comilla+" ,";
-	  query = query +" category = "+comilla+request.body.job_position.category+comilla;
-	       
+
 	var rta = "{ \"job_positions\": {";
         rta = rta + "\"name\": \""+body.job_position.name+ "\",";
         rta = rta + "\"description\": \""+body.job_position.description+"\",";

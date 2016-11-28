@@ -154,11 +154,11 @@ app.put('/categories/:problem', function (request, response) {
 				
 				rta = rta + "\"description\": \""+request.body.category.description+"\" , ";
 				rta = rta + "}}";
-					   
-						 rta = rta.replace(/\\/g , "");
-						 response.write(rta); 
-						response.end(); }
-						});
+
+				 rta = rta.replace(/\\/g , "");
+				 response.write(rta); 
+				response.end(); }
+				});
 		   
 		   }
 		   else{

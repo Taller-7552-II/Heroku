@@ -103,6 +103,34 @@ app.get('/usuarios/:user', function (request, response) {
     });
   });
 });
+//TODAS LAS CATEGORYS
+//post CATEGORY POSITIONS
+var pg = require('pg');
+
+var connectionString = "postgres://nlmbufkijzqmqs:2BESGXz_KTUisRfo4MmdoJBNid@ec2-54-235-254-199.compute-1.amazonaws.com:5432/d36ea1inur7hrd";
+app.post('/categories', function (request, response) {
+
+  pg.defaults.ssl = true;
+  pg.connect(connectionString, function(err, client, done) {
+  	if (err)
+       { console.error('Rompio loco',err);}
+   
+    var comilla = '\'';
+    client.query('insert into categories values('+comilla+request.body.category.name+comilla+','+comilla+request.body.category.description+comilla+')' , function(err, result) {
+      done();
+      if (err)
+       { console.error(err); response.send("Error " + err); }
+      else
+       {
+	     response.status(201);
+	     var rta = "  \"category\": {\"name\": \""+request.body.category.name+"\",\"description\": \""
+	     rta = rta+request.body.category.description+"\"}";
+	         rta = rta.replace(/\\/g , "");
+	         response.write(rta); 
+       		response.end(); }
+    });
+  });
+});
 
 
 //TODOS LOS  SKILLS

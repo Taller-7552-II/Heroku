@@ -135,25 +135,25 @@ app.put('/categories/:problem', function (request, response) {
 		   
 		   if(resultJobs.rows.length <1){
 					   
-						var query = "UPDATE categories set name = "+comilla+request.body.category.name+comilla+" ,";
-				query = query +" description = "+comilla+request.body.category.description+comilla+" ,";
-				
-				  query = query + " where name = "+comilla +request.params.problem+comilla+"
-				  
-				client.query(query, function(err, result) {
-				  done();
-				  if (err)
-				   { console.error(err); response.send("Error " + err); }
-				  else
-				   {
-					   
+			var query = "UPDATE categories set name = "+comilla+request.body.category.name+comilla+" ,";
+			query = query +" description = "+comilla+request.body.category.description+comilla+" ,";
+
+			  query = query + " where name = "+comilla +request.params.problem+comilla+";
+
+			client.query(query, function(err, result) {
+			  done();
+			  if (err)
+			   { console.error(err); response.send("Error " + err); }
+			  else
+			   {
+
 					   
 
 				var rta =  "{ \"category\": {";
 					rta = rta + "\"name\": \""+request.body.category.name+ "\" , ";
 				
 				rta = rta + "\"description\": \""+request.body.category.description+"\" , ";
-				rta = rta + }}";
+				rta = rta + "}}";
 					   
 						 rta = rta.replace(/\\/g , "");
 						 response.write(rta); 

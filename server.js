@@ -105,6 +105,33 @@ app.get('/usuarios/:user', function (request, response) {
 });
 
 
+//post JOB POSITIONS
+var pg = require('pg');
+
+var connectionString = "postgres://nlmbufkijzqmqs:2BESGXz_KTUisRfo4MmdoJBNid@ec2-54-235-254-199.compute-1.amazonaws.com:5432/d36ea1inur7hrd";
+app.post('/job_positions/categories/:problem', function (request, response) {
+
+  pg.defaults.ssl = true;
+  pg.connect(connectionString, function(err, client, done) {
+  	if (err)
+       { console.error('Rompio loco',err);}
+    var num = request.url.toString().substring(26, request.url.toString().length);
+    var comilla = '\'';
+    client.query('insert into test_table values('+request.body.name+','+request.body.description+','request.params.problem+')' , function(err, result) {
+      done();
+      if (err)
+       { console.error(err); response.send("Error " + err); }
+      else
+       {
+	       
+	       var rta = "{ \"job_positions\": "+JSON.stringify(result.rows);
+	       rta = rta+",\"metadata\": { \"version\": \"0.1\",\"count\": "+JSON.stringify(result.rows.length)+"}}";
+	         rta = rta.replace(/\\/g , "");
+	         response.write(rta); 
+       		response.end(); }
+    });
+  });
+});
 //GET JOB POSITIONS
 var pg = require('pg');
 

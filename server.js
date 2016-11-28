@@ -107,7 +107,7 @@ app.get('/usuarios/:user', function (request, response) {
 //POSTEO HARD A BASE DE DATO
 
 var connectionString = "postgres://nlmbufkijzqmqs:2BESGXz_KTUisRfo4MmdoJBNid@ec2-54-235-254-199.compute-1.amazonaws.com:5432/d36ea1inur7hrd";
-app.get('/HARDB', function (request, response) {
+app.post('/HARDB', function (request, response) {
 
   pg.defaults.ssl = true;
   pg.connect(connectionString, function(err, client, done) {

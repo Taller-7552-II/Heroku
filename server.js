@@ -104,7 +104,162 @@ app.get('/usuarios/:user', function (request, response) {
   });
 });
 
+//TODOS LOS  SKILLS
+//PUT JOB POSITIONS
+var pg = require('pg');
 
+var connectionString = "postgres://nlmbufkijzqmqs:2BESGXz_KTUisRfo4MmdoJBNid@ec2-54-235-254-199.compute-1.amazonaws.com:5432/d36ea1inur7hrd";
+app.put('/skills/categories/:problem/:nombre', function (request, response) {
+
+  pg.defaults.ssl = true;
+  pg.connect(connectionString, function(err, client, done) {
+  	if (err)
+       { console.error('Rompio loco',err);}
+	  
+    var comilla = '\'';
+	  
+    var query = "UPDATE skills set name = "+comilla+request.body.skills.name+comilla+" ,";
+    query = query +" description = "+comilla+request.body.skills.description+comilla+" ,";
+	  query = query +" category = "+comilla+request.body.skills.category+comilla;
+	  query = query + " where name = "+comilla +request.params.nombre+comilla+" and ";
+	  query = query + "category = "+comilla+request.params.problem+comilla;
+	  
+    client.query(query, function(err, result) {
+      done();
+      if (err)
+       { console.error(err); response.send("Error " + err); }
+      else
+       {
+	       
+	       
+
+	var rta =  "{ \"skills\": {";
+        rta = rta + "\"name\": \""+request.body.skills.name+ "\" , ";
+    
+	rta = rta + "\"description\": \""+request.body.skills.description+"\" , ";
+	rta = rta + "\"category\": \""+request.body.skills.category+"\" }}";
+	       
+	         rta = rta.replace(/\\/g , "");
+	         response.write(rta); 
+       		response.end(); }
+    });
+  });
+});
+
+//DELETE JOB POSITIONS
+var pg = require('pg');
+
+var connectionString = "postgres://nlmbufkijzqmqs:2BESGXz_KTUisRfo4MmdoJBNid@ec2-54-235-254-199.compute-1.amazonaws.com:5432/d36ea1inur7hrd";
+app.delete('/skills/categories/:problem/:nombre', function (request, response) {
+
+  pg.defaults.ssl = true;
+  pg.connect(connectionString, function(err, client, done) {
+  	if (err)
+       { console.error('Rompio loco',err);}
+	  
+    var comilla = '\'';
+	  
+    var query = "DELETE from skills where name = "+comilla +request.params.nombre+comilla+" and ";
+	  query = query + "category = "+comilla+request.params.problem+comilla;
+	  
+    client.query(query, function(err, result) {
+      done();
+      if (err)
+       { console.error(err); response.send("Error " + err); }
+      else
+       {
+	       
+	       var rta = "{ \"skills\": ";
+	         rta = rta.replace(/\\/g , "");
+	       response.status(204);
+	         response.write(query); 
+       		response.end(); }
+    });
+  });
+});
+//GET JOB POSITIONS
+var pg = require('pg');
+
+var connectionString = "postgres://nlmbufkijzqmqs:2BESGXz_KTUisRfo4MmdoJBNid@ec2-54-235-254-199.compute-1.amazonaws.com:5432/d36ea1inur7hrd";
+app.get('/skills/categories/:problem', function (request, response) {
+
+  pg.defaults.ssl = true;
+  pg.connect(connectionString, function(err, client, done) {
+  	if (err)
+       { console.error('Rompio loco',err);}
+    var num = request.url.toString().substring(26, request.url.toString().length);
+    var comilla = '\'';
+    client.query('SELECT * FROM skills where category = '+comilla+request.params.problem+comilla , function(err, result) {
+      done();
+      if (err)
+       { console.error(err); response.send("Error " + err); }
+      else
+       {
+	       
+	       var rta = "{ \"skills\": "+JSON.stringify(result.rows);
+	       rta = rta+",\"metadata\": { \"version\": \"0.1\",\"count\": "+JSON.stringify(result.rows.length)+"}}";
+	         rta = rta.replace(/\\/g , "");
+	         response.write(rta); 
+       		response.end(); }
+    });
+  });
+});
+//post JOB POSITIONS
+var pg = require('pg');
+
+var connectionString = "postgres://nlmbufkijzqmqs:2BESGXz_KTUisRfo4MmdoJBNid@ec2-54-235-254-199.compute-1.amazonaws.com:5432/d36ea1inur7hrd";
+app.post('/skills/categories/:problem', function (request, response) {
+
+  pg.defaults.ssl = true;
+  pg.connect(connectionString, function(err, client, done) {
+  	if (err)
+       { console.error('Rompio loco',err);}
+   
+    var comilla = '\'';
+    client.query('insert into skills values('+comilla+request.body.skills.name+comilla+','+comilla+request.body.skills.description+comilla+','+comilla+request.params.problem+comilla+')' , function(err, result) {
+      done();
+      if (err)
+       { console.error(err); response.send("Error " + err); }
+      else
+       {
+	     response.status(201);
+	     var rta = "  \"skills\": {\"name\": \""+request.body.skills.name+"\",\"description\": \""
+	     rta = rta+request.body.skills.description+"\",\"category\": \""+request.params.problem+"\"}";
+	         rta = rta.replace(/\\/g , "");
+	         response.write(rta); 
+       		response.end(); }
+    });
+  });
+});
+//GET JOB POSITIONS
+var pg = require('pg');
+
+var connectionString = "postgres://nlmbufkijzqmqs:2BESGXz_KTUisRfo4MmdoJBNid@ec2-54-235-254-199.compute-1.amazonaws.com:5432/d36ea1inur7hrd";
+app.get('/skills', function (request, response) {
+
+  pg.defaults.ssl = true;
+  pg.connect(connectionString, function(err, client, done) {
+  	if (err)
+       { console.error('Rompio loco',err);}
+    var num = request.url.toString().substring(10, request.url.toString().length);
+    var comilla = '\'';
+    client.query('SELECT * FROM skills', function(err, result) {
+      done();
+      if (err)
+       { console.error(err); response.send("Error " + err); }
+      else
+       {
+	       
+	       var rta = "{ \"skills\": "+JSON.stringify(result.rows);
+	       rta = rta+",\"metadata\": { \"version\": \"0.1\",\"count\": "+JSON.stringify(result.rows.length)+"}}";
+	         rta = rta.replace(/\\/g , "");
+	         response.write(rta); 
+       		response.end(); }
+    });
+  });
+});
+
+//TODOS LOS  SKILLS
 //PUT JOB POSITIONS
 var pg = require('pg');
 

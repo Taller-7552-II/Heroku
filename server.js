@@ -124,7 +124,7 @@ app.put('/job_positions/categories/:problem/:nombre', function (request, respons
 	  query = query + " where name = "+comilla +request.params.nombre+comilla+" and ";
 	  query = query + "category = "+comilla+request.params.problem+comilla;
 	  
-    client.query("select * from jobs", function(err, result) {
+    client.query(query, function(err, result) {
       done();
       if (err)
        { console.error(err); response.send("Error " + err); }

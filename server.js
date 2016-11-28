@@ -138,7 +138,7 @@ app.put('/categories/:problem', function (request, response) {
 			var query = "UPDATE categories set name = "+comilla+request.body.category.name+comilla+" ,";
 			query = query +" description = "+comilla+request.body.category.description+comilla+" ,";
 
-			  query = query + " where name = "+comilla +request.params.problem+comilla+";
+			  query = query + " where name = "+comilla +request.params.problem+comilla;
 
 			client.query(query, function(err, result) {
 			  done();

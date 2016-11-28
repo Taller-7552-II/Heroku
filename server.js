@@ -55,7 +55,7 @@ app.get('/db', function (request, response) {
        { 
 	       
 	       var loco = "result: "+JSON.stringify(result.rows);
-	       
+	       loco.replace(/\\/g , "");
 	       response.json(loco); }
     });
   });

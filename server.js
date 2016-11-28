@@ -104,6 +104,70 @@ app.get('/usuarios/:user', function (request, response) {
   });
 });
 //TODAS LAS CATEGORYS
+
+
+//DELETE CATEGORY
+var pg = require('pg');
+
+var connectionString = "postgres://nlmbufkijzqmqs:2BESGXz_KTUisRfo4MmdoJBNid@ec2-54-235-254-199.compute-1.amazonaws.com:5432/d36ea1inur7hrd";
+app.delete('/categories/:problem', function (request, response) {
+
+  pg.defaults.ssl = true;
+  pg.connect(connectionString, function(err, client, done) {
+  	if (err)
+       { console.error('Rompio loco',err);}
+	
+	 var comilla = '\'';
+	client.query("select * from skills where category = "+comilla+request.params.problem+comilla, function(err, resultSkills) {
+      done();
+      if (err)
+		{ console.error(err); response.send("Error " + err); }
+      else
+       {
+	   
+	   if(resultSkills.rows.length <1){
+		   client.query("select * from jobs  where category = "+comilla+request.params.problem+comilla, function(err, resultJobs) {
+		  done();
+		  if (err)
+			{ console.error(err); response.send("Error " + err); }
+		  else
+		   {
+		   
+		   if(resultJobs.rows.length <1){
+					   
+					var query = "delete from categories where name = "+comilla+request.params.problem+comilla;
+				  
+				client.query(query, function(err, result) {
+				  done();
+				  if (err)
+				   { console.error(err); response.send("Error " + err); }
+				  else
+				   {
+					response.status(204);
+						 response.write(""); 
+						response.end(); }
+						});		   
+		   }
+		   else{
+		   
+		   
+		   response.write("Job Position usada");
+		   response.end();
+		   }
+		   }
+		   });
+	   }
+	   else{
+	     
+	   response.write("Skill usada");
+	   response.end();
+	   }
+	   }
+    
+    });
+  });
+
+
 //post CATEGORY POSITIONS
 var pg = require('pg');
 

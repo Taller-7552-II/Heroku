@@ -134,9 +134,11 @@ app.put('/job_positions/categories/:problem/:nombre', function (request, respons
 	       
 
 	var rta =  "{ \"job_positions\": {";
-        rta = rta + "\"name\": \""+body.job_position.name+ "\" , ";
+        rta = rta + "\"name\": \""+request.body.job_position.name+ "\" , ";
     
-	      
+	rta = rta + "\"description\": \""+request.body.job_position.description+"\" , ";
+	rta = rta + "\"category\": \""+request.body.job_position.category+"\" }}";
+	       
 	         rta = rta.replace(/\\/g , "");
 	         response.write(rta); 
        		response.end(); }

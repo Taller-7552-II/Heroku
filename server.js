@@ -24,6 +24,15 @@ app.use(require('cookie-parser')(credentials.cookieSecret));
 
 app.set('port',process.env.PORT || 3000);
 app.use(function(req, res, next) {
+	
+	exports.optionsCB = function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'PUT');
+		
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type');
+	}
+	
+	
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();

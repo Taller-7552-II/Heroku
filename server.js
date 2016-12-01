@@ -476,7 +476,7 @@ app.get('/skills', function (request, response) {
 var pg = require('pg');
 
 var connectionString = "postgres://nlmbufkijzqmqs:2BESGXz_KTUisRfo4MmdoJBNid@ec2-54-235-254-199.compute-1.amazonaws.com:5432/d36ea1inur7hrd";
-app.post('/job_positions/categories/:problem/:nombre', function (request, response) {
+app.put('/job_positions/categories/:problem/:nombre', function (request, response) {
 
   pg.defaults.ssl = true;
   pg.connect(connectionString, function(err, client, done) {

@@ -685,7 +685,7 @@ app.post('/file-upload/:year/:month', function(request, response) {
 });
 
 app.get('/', function(request, response) {
-	   response.sendFile('index.html');
+	   response.sendFile('http://jobify-professional.herokuapp.com/index.html');
 });
 
 app.use(function(request, response,next) {

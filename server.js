@@ -685,7 +685,7 @@ app.post('/file-upload/:year/:month', function(request, response) {
 });
 
 app.get('/', function(request, response) {
-	response.render('home');
+	   response.sendFile('index.html');
 });
 
 app.use(function(request, response,next) {

@@ -1,0 +1,25 @@
+@CHARSET "ISO-8859-1";
+
+
+.verdeClaro {
+	color: #6ab8f7;
+}
+
+/* rgba(84, 207, 122, 1) */	
+.verdeMedio {
+	color: #2196f3;
+}
+
+.verdeOscuro {
+	color: #1976D2;
+}
+
+/* rgba(34, 34, 34, 1) */
+.negroMenu {
+	color: #222222;
+}
+
+/* rgba(157, 157, 157, 1); */
+.grisLetraMenu {
+	color: #9D9D9D;
+}

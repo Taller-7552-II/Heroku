@@ -1,0 +1,59 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<div class="panel panel-default" >
+				<div class="panel-heading" style="cursor: pointer;">
+					<span class="panel-title">POSICIONES DE TRABAJO</span>
+				</div>
+				<div class="panel-body" >
+					<div class="table-responsive">
+						<div id="custom-search-input">
+							<div class="input-group col-md-12">
+								<input type="text" class="search-query form-control" ng-keyup="$event.keyCode == 13 ? fetchTrabajosByCategory() : null"
+									placeholder="Buscar categor&iacute;a" ng-model="queryResultados" /> <span
+									class="input-group-btn" >
+									<button class="btn btn-primary hvr-glow" type="button">
+										<i class="fa fa-search" aria-hidden="true"></i>
+									</button>
+								</span>
+							</div>
+						</div>
+						</br>
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th style="text-align: center;">NOMBRE</th>
+									<th style="text-align: center;">DESCRIPCI&Oacute;N</th>
+									<th style="text-align: center;">CATEGOR&Iacute;A</th>
+									<th style="text-align: center;">OPCIONES</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="t in trabajos">
+									<td style="text-align: center;"><span ng-hide="editing">{{t.name}}</span><input
+									ng-show="editing" class="form-control" type="text"
+									name="nameTrabajo" ng-model="t.name"
+									ng-disabled="!editing"
+									ng-class="{'editing': editing, 'input-disabled': !editing}"></td>
+									<td style="text-align: center;">{{t.description}}</td>
+									<td style="text-align: center;">{{t.category}}</td>
+									<td style="text-align: center;">
+										<button ng-hide="editing" ng-click="writeDirty(t.name,t.description,t.category); editing = true"
+											class="btn btn-warning hvr-glow">
+											<i class="fa fa-pencil" aria-hidden="true"></i>
+										</button>
+										<button ng-show="editing"
+											ng-click="putServis(t.name,t.description,t.category); editing = false"
+											class="btn btn-success hvr-glow">
+											<i class="fa fa-floppy-o" aria-hidden="true"></i>
+										</button>
+									</td>								
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>			
+		</div>
+	</div>
+</div>
